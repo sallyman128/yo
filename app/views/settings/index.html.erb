@@ -1,0 +1,47 @@
+<div class="settings-page">
+  <h1>Settings</h1>
+
+  <div class="settings-grid">
+    <div class="card">
+      <h2>Push Notifications</h2>
+      <p>Enable push notifications to receive messages from your friends.</p>
+      
+      <div data-controller="push-notifications">
+        <div class="notification-status">
+          <p data-push-notifications-target="status">Checking notification status...</p>
+        </div>
+        
+        <div class="notification-actions">
+          <button data-action="click->push-notifications#requestPermission" class="btn btn-primary">
+            Enable Push Notifications
+          </button>
+        </div>
+      </div>
+
+      <% if @push_subscriptions.any? %>
+        <div class="subscriptions-list">
+          <h3>Active Subscriptions (<%= @push_subscriptions.count %>)</h3>
+          <% @push_subscriptions.each do |subscription| %>
+            <div class="subscription-item">
+              <span class="subscription-endpoint"><%= truncate(subscription.endpoint, length: 50) %></span>
+              <%= link_to "Remove", api_v1_push_subscription_path(subscription), method: :delete, class: "btn btn-danger btn-sm", data: { confirm: "Are you sure?" } %>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="card">
+      <h2>Account Information</h2>
+      <div class="account-info">
+        <p><strong>Username:</strong> <%= current_user.username %></p>
+        <p><strong>Email:</strong> <%= current_user.email %></p>
+        <p><strong>Member since:</strong> <%= current_user.created_at.strftime("%B %d, %Y") %></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="back-link">
+    <%= link_to "Back to Dashboard", root_path, class: "btn btn-secondary" %>
+  </div>
+</div>

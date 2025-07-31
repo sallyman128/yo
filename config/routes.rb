@@ -9,6 +9,35 @@ Rails.application.routes.draw do
   # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
 
-  # Defines the root path route ("/")
-  # root "posts#index"
+  # Devise routes
+  devise_for :users
+
+  # Root route - welcome for guests, home for authenticated users
+  root "welcome#index"
+
+  # Settings
+  get "settings", to: "settings#index"
+
+  # Friendships
+  resources :friendships, only: [:index, :create, :destroy] do
+    member do
+      patch :accept
+      patch :reject
+    end
+  end
+
+  # Push notifications
+  resources :push_notifications, only: [:create] do
+    collection do
+      post :send_notification
+    end
+  end
+
+  # API routes for push notifications
+  namespace :api do
+    namespace :v1 do
+      resources :push_subscriptions, only: [:create, :destroy]
+      resources :notifications, only: [:create]
+    end
+  end
 end

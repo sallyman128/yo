@@ -1,0 +1,26 @@
+<div class="welcome-page">
+  <div class="welcome-content">
+    <h1>Welcome to Yo</h1>
+    <p class="welcome-subtitle">Connect with friends and send push notifications instantly!</p>
+    
+    <div class="welcome-features">
+      <div class="feature">
+        <h3>👥 Add Friends</h3>
+        <p>Send friend requests and build your network</p>
+      </div>
+      <div class="feature">
+        <h3>📱 Push Notifications</h3>
+        <p>Send instant notifications to your friends' devices</p>
+      </div>
+      <div class="feature">
+        <h3>🔔 Real-time Alerts</h3>
+        <p>Get notified with sound and visual alerts</p>
+      </div>
+    </div>
+
+    <div class="welcome-actions">
+      <%= link_to "Sign Up", new_user_registration_path, class: "btn btn-primary btn-large" %>
+      <%= link_to "Sign In", new_user_session_path, class: "btn btn-secondary btn-large" %>
+    </div>
+  </div>
+</div>

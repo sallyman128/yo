@@ -23,6 +23,35 @@
   </head>
 
   <body>
-    <%= yield %>
+    <% if user_signed_in? %>
+      <nav class="navbar">
+        <div class="nav-brand">
+          <%= link_to "Yo", root_path %>
+        </div>
+        <div class="nav-links">
+          <%= link_to "Home", root_path %>
+          <%= link_to "Friends", friendships_path %>
+          <%= link_to "Send Notification", push_notifications_path %>
+          <%= link_to "Settings", settings_path %>
+          <%= link_to "Sign Out", destroy_user_session_path, method: :delete %>
+        </div>
+      </nav>
+    <% end %>
+
+    <% if notice %>
+      <div class="alert alert-success">
+        <%= notice %>
+      </div>
+    <% end %>
+
+    <% if alert %>
+      <div class="alert alert-danger">
+        <%= alert %>
+      </div>
+    <% end %>
+
+    <main class="container">
+      <%= yield %>
+    </main>
   </body>
 </html>

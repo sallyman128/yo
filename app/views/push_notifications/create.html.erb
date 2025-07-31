@@ -1,0 +1,36 @@
+<div class="push-notifications-page">
+  <h1>Send Push Notification</h1>
+
+  <% if @friends.any? %>
+    <div class="notification-form">
+      <form action="<%= send_notification_push_notifications_path %>" method="post">
+        <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+        
+        <div class="form-group">
+          <label for="friend_id">Select Friend:</label>
+          <select name="friend_id" id="friend_id" class="form-control" required>
+            <option value="">Choose a friend...</option>
+            <% @friends.each do |friend| %>
+              <option value="<%= friend.id %>"><%= friend.username %></option>
+            <% end %>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="message">Message:</label>
+          <textarea name="message" id="message" class="form-control" rows="3" placeholder="Enter your message..."></textarea>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary">Send Notification</button>
+          <%= link_to "Cancel", root_path, class: "btn btn-secondary" %>
+        </div>
+      </form>
+    </div>
+  <% else %>
+    <div class="no-friends">
+      <p>You don't have any friends yet. <%= link_to "Add some friends", friendships_path %> to send notifications!</p>
+      <%= link_to "Back to Dashboard", root_path, class: "btn btn-secondary" %>
+    </div>
+  <% end %>
+</div>

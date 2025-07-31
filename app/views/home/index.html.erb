@@ -1,0 +1,61 @@
+<div class="dashboard">
+  <h1>Welcome, <%= current_user.username %>!</h1>
+
+  <div class="dashboard-grid">
+    <div class="card">
+      <h2>Your Friends (<%= @friends.count %>)</h2>
+      <% if @friends.any? %>
+        <div class="friends-list">
+          <% @friends.each do |friend| %>
+            <div class="friend-item">
+              <span class="friend-name"><%= friend.username %></span>
+              <%= link_to "Send Notification", new_push_notification_path(friend_id: friend.id), class: "btn btn-primary btn-sm" %>
+            </div>
+          <% end %>
+        </div>
+      <% else %>
+        <p>You don't have any friends yet. <%= link_to "Find friends", friendships_path %> to get started!</p>
+      <% end %>
+    </div>
+
+    <div class="card">
+      <h2>Pending Friend Requests (<%= @pending_requests.count %>)</h2>
+      <% if @pending_requests.any? %>
+        <div class="requests-list">
+          <% @pending_requests.each do |request| %>
+            <div class="request-item">
+              <span class="request-name"><%= request.user.username %></span>
+              <div class="request-actions">
+                <%= link_to "Accept", accept_friendship_path(request), method: :patch, class: "btn btn-success btn-sm" %>
+                <%= link_to "Reject", reject_friendship_path(request), method: :patch, class: "btn btn-danger btn-sm" %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      <% else %>
+        <p>No pending friend requests.</p>
+      <% end %>
+    </div>
+
+    <div class="card">
+      <h2>Sent Friend Requests (<%= @sent_requests.count %>)</h2>
+      <% if @sent_requests.any? %>
+        <div class="requests-list">
+          <% @sent_requests.each do |request| %>
+            <div class="request-item">
+              <span class="request-name"><%= request.friend.username %></span>
+              <span class="request-status">Pending</span>
+            </div>
+          <% end %>
+        </div>
+      <% else %>
+        <p>No sent friend requests.</p>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="quick-actions">
+    <%= link_to "Manage Friends", friendships_path, class: "btn btn-primary" %>
+    <%= link_to "Send Notification", push_notifications_path, class: "btn btn-secondary" %>
+  </div>
+</div>
