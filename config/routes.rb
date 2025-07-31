@@ -15,6 +15,9 @@ Rails.application.routes.draw do
   # Root route - welcome for guests, home for authenticated users
   root "welcome#index"
 
+  # Home route for authenticated users
+  get "home", to: "home#index"
+
   # Settings
   get "settings", to: "settings#index"
 
@@ -27,7 +30,7 @@ Rails.application.routes.draw do
   end
 
   # Push notifications
-  resources :push_notifications, only: [:create] do
+  resources :push_notifications, only: [:new, :create] do
     collection do
       post :send_notification
     end

@@ -17,40 +17,65 @@
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/icon.png">
 
-    <%# Includes all stylesheet files in app/assets/stylesheets %>
-    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
+  <body class="bg-gray-50 min-h-screen">
     <% if user_signed_in? %>
-      <nav class="navbar">
-        <div class="nav-brand">
-          <%= link_to "Yo", root_path %>
-        </div>
-        <div class="nav-links">
-          <%= link_to "Home", root_path %>
-          <%= link_to "Friends", friendships_path %>
-          <%= link_to "Send Notification", push_notifications_path %>
-          <%= link_to "Settings", settings_path %>
-          <%= link_to "Sign Out", destroy_user_session_path, method: :delete %>
+      <nav class="bg-gradient-to-r from-purple-600 to-blue-600 shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="flex justify-between h-16">
+            <div class="flex items-center">
+              <%= link_to "Yo", home_path, class: "text-white text-xl font-bold hover:text-gray-200 transition-colors" %>
+            </div>
+            <div class="flex items-center space-x-4">
+              <%= link_to "Home", home_path, class: "text-white hover:text-gray-200 px-3 py-2 rounded-md text-sm font-medium transition-colors" %>
+              <%= link_to "Friends", friendships_path, class: "text-white hover:text-gray-200 px-3 py-2 rounded-md text-sm font-medium transition-colors" %>
+              <%= link_to "Send Notification", push_notifications_path, class: "text-white hover:text-gray-200 px-3 py-2 rounded-md text-sm font-medium transition-colors" %>
+              <%= link_to "Settings", settings_path, class: "text-white hover:text-gray-200 px-3 py-2 rounded-md text-sm font-medium transition-colors" %>
+              <%= button_to "Sign Out", destroy_user_session_path, method: :delete, class: "text-white hover:text-gray-200 px-3 py-2 rounded-md text-sm font-medium transition-colors bg-transparent border-0 cursor-pointer" %>
+            </div>
+          </div>
         </div>
       </nav>
     <% end %>
 
     <% if notice %>
-      <div class="alert alert-success">
-        <%= notice %>
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4">
+        <div class="bg-green-50 border-l-4 border-green-400 p-4">
+          <div class="flex">
+            <div class="flex-shrink-0">
+              <svg class="h-5 w-5 text-green-400" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+              </svg>
+            </div>
+            <div class="ml-3">
+              <p class="text-sm text-green-700"><%= notice %></p>
+            </div>
+          </div>
+        </div>
       </div>
     <% end %>
 
     <% if alert %>
-      <div class="alert alert-danger">
-        <%= alert %>
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4">
+        <div class="bg-red-50 border-l-4 border-red-400 p-4">
+          <div class="flex">
+            <div class="flex-shrink-0">
+              <svg class="h-5 w-5 text-red-400" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+              </svg>
+            </div>
+            <div class="ml-3">
+              <p class="text-sm text-red-700"><%= alert %></p>
+            </div>
+          </div>
+        </div>
       </div>
     <% end %>
 
-    <main class="container">
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <%= yield %>
     </main>
   </body>

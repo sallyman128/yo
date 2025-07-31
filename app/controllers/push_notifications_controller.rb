@@ -1,6 +1,11 @@
 class PushNotificationsController < ApplicationController
   before_action :authenticate_user!
 
+  def new
+    @friends = current_user.all_friends
+    @selected_friend = User.find(params[:friend_id]) if params[:friend_id]
+  end
+
   def create
     @friends = current_user.all_friends
   end
